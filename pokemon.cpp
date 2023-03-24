@@ -4,16 +4,19 @@
 
 using namespace std;
 
+string nameI;
+int defI, ataI;
+
+string nomeInimigo;
+int ataqueInimigo, defesaInimigo;
+
 struct Pokemon
 {
-    Pokemon(string nome, int ataque, int defesa, int ataqueI, int defesaI)
+    Pokemon(string nome, int ataque, int defesa)
     {
         name = nome;
         ata = ataque;
         def = defesa;
-
-        ataI = ataqueI;
-        defI = defesaI;
     };
 
     void ShowPokemon()
@@ -25,7 +28,7 @@ struct Pokemon
              << endl;
     };
 
-    void Batalha()
+    int Batalha(std::string nameI, int ataI, int defI)
     {
         while (defI > 0)
         {
@@ -34,7 +37,8 @@ struct Pokemon
 
             if (atack == 's')
             {
-                Ataque();
+                defI -= ata;
+                cout << nameI << " esta com " << defI << " de HP" << endl;
             }
             else
             {
@@ -43,69 +47,82 @@ struct Pokemon
         }
     }
 
-    void Ataque()
-    {
-        defI -= ata;
-        cout << "Pikachu esta com " << defI << " de HP" << endl;
-    };
-
     string name;
     char atack;
-    int ata, def, defI, ataI;
+    int ata, def;
 };
+
+int PokemonInimigo(std::string nomeI, int ataqueI, int defesaI)
+{
+    nameI = nomeI;
+    ataI = ataqueI;
+    defI = defesaI;
+}
+
+void InimigoStatus()
+{
+    cout << "Digite o pokemon que voce quer atacar: ";
+    cin >> nomeInimigo;
+
+    cout << "Ataque dele: ";
+    cin >> ataqueInimigo;
+
+    cout << "Defesa dele: ";
+    cin >> defesaInimigo;
+}
 
 void Charmander()
 {
-    Pokemon main("Charmander", 17, 130, 18, 120);
+    Pokemon main("Charmander", 17, 130);
     cout << "Voce escolheu o " << endl;
     main.ShowPokemon();
-
-    main.Batalha();
+    InimigoStatus();
+    main.Batalha(nomeInimigo, ataqueInimigo, defesaInimigo);
 }
 
 void Bulbasaur()
 {
-    Pokemon main("Bulbasaur", 11, 190, 18, 120);
+    Pokemon main("Bulbasaur", 11, 190);
     cout << "Voce escolheu o " << endl;
     main.ShowPokemon();
-
-    main.Batalha();
+    InimigoStatus();
+    main.Batalha(nomeInimigo, ataqueInimigo, defesaInimigo);
 }
 
 void Squirtle()
 {
-    Pokemon main("Squirtle", 15, 150, 18, 120);
+    Pokemon main("Squirtle", 15, 150);
     cout << "Voce escolheu o " << endl;
     main.ShowPokemon();
-
-    main.Batalha();
+    InimigoStatus();
+    main.Batalha(nomeInimigo, ataqueInimigo, defesaInimigo);
 }
 
 int main()
 {
     char chose;
 
-    Pokemon cha("Charmander", 17, 130, 18, 120);
-    Pokemon bulb("Bulbasaur", 11, 190, 18, 120);
-    Pokemon squi("Squirtle", 15, 150, 18, 120);
+    Pokemon cha("Charmander", 17, 130);
+    Pokemon bulb("Bulbasaur", 11, 190);
+    Pokemon squi("Squirtle", 15, 150);
 
     cha.ShowPokemon();
     bulb.ShowPokemon();
     squi.ShowPokemon();
 
-    cout << "Escolha seu Pokemon para atacar o Pikachu(Ataque: 18 e Defesa: 120 ( Digite: c, b ou s ): "
+    cout << "Escolha seu Pokemon para atacar o ( Digite o nome ou: c, b ou s ): "
          << endl;
     cin >> chose;
 
-    if (chose == 'c')
+    if (chose == 'c' || chose == 'C')
     {
         Charmander();
     }
-    else if (chose == 'b')
+    else if (chose == 'b' || chose == 'B')
     {
         Bulbasaur();
     }
-    else if (chose == 's')
+    else if (chose == 's' || chose == 'S')
     {
         Squirtle();
     }
