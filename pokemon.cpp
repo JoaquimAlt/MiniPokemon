@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include <string>
 #include <iostream>
+#include <cstdlib>
+#include <ctime>
 
 using namespace std;
 
@@ -28,28 +30,54 @@ struct Pokemon
              << endl;
     };
 
-    int Batalha(std::string nameI, int ataI, int defI)
+    int Batalha(std::string InimigoName, int InimigoAtaque, int InimigoDefesa)
     {
-        while (defI > 0)
+        while (InimigoDefesa > 0)
         {
-            cout << "Voce quer atacar? (s ou n)";
+            cout << "Voce quer atacar? (s ou n)" << endl;
             cin >> atack;
 
             if (atack == 's')
             {
-                defI -= ata;
-                cout << nameI << " esta com " << defI << " de HP" << endl;
+                InimigoDefesa -= ata;
+                cout << InimigoName << " esta com " << InimigoDefesa << " de HP" << endl << endl;
             }
             else
             {
                 cout << "vc ficou parado" << endl;
             }
-        }
-    }
+
+            unsigned seed = time(0);
+            srand(seed);
+            escolhaInimigo = 1 + rand() % 2;
+
+            if (escolhaInimigo == 1)
+            {
+                def -= InimigoAtaque;
+                cout << InimigoName << " atacou" << endl;
+            } 
+            else if (escolhaInimigo == 2) 
+            {
+            cout << "O " << InimigoName << " nao fez nada" << endl;
+            }
+
+            cout << name << " esta com " << def << " de HP" << endl << endl;
+
+            if (def <= 0){
+                cout << "Voce foi derrotado";
+                break;
+            }
+        };
+
+        if (InimigoDefesa <= 0)
+        {
+            cout << "Voce derrotou o " << InimigoName;
+        };
+    };
 
     string name;
     char atack;
-    int ata, def;
+    int ata, def, escolhaInimigo;
 };
 
 int PokemonInimigo(std::string nomeI, int ataqueI, int defesaI)
@@ -57,7 +85,7 @@ int PokemonInimigo(std::string nomeI, int ataqueI, int defesaI)
     nameI = nomeI;
     ataI = ataqueI;
     defI = defesaI;
-}
+};
 
 void InimigoStatus()
 {
