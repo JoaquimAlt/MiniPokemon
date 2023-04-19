@@ -39,8 +39,16 @@ struct Pokemon
 
             if (atack == 's')
             {
+                unsigned seed = time(0);
+                srand(seed);
+                chanceAtaque = 1 + rand() % 3;
+                
+                if(chanceAtaque == 1 || chanceAtaque == 2){
                 InimigoDefesa -= ata;
-                cout << InimigoName << " esta com " << InimigoDefesa << " de HP" << endl << endl;
+                cout << "Voce atacou" << InimigoName << " esta com " << InimigoDefesa << " de HP" << endl << endl;
+                } else {
+                    cout << "Errou o ataque" << endl;
+                }
             }
             else
             {
@@ -49,14 +57,14 @@ struct Pokemon
 
             unsigned seed = time(0);
             srand(seed);
-            escolhaInimigo = 1 + rand() % 2;
+            escolhaInimigo = 1 + rand() % 3;
 
-            if (escolhaInimigo == 1)
+            if (escolhaInimigo == 1 || escolhaInimigo == 2)
             {
                 def -= InimigoAtaque;
                 cout << InimigoName << " atacou" << endl;
             } 
-            else if (escolhaInimigo == 2) 
+            else if (escolhaInimigo == 3) 
             {
             cout << "O " << InimigoName << " nao fez nada" << endl;
             }
@@ -77,7 +85,7 @@ struct Pokemon
 
     string name;
     char atack;
-    int ata, def, escolhaInimigo;
+    int ata, def, escolhaInimigo, chanceAtaque;
 };
 
 int PokemonInimigo(std::string nomeI, int ataqueI, int defesaI)
